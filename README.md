@@ -2,6 +2,22 @@
 
 欢迎使用多彩背景扩展！这个插件旨在帮助用户轻松地为他们喜欢的网站更改背景颜色。无论是为了美化网页，还是为了提升可读性，我们都希望为您提供一个更个性化的浏览体验。
 
+## 扩展预览
+
+以下是多彩背景扩展的界面和功能预览：
+
+<img width="2560" height="1600" alt="chatgpt" src="https://github.com/user-attachments/assets/4fffb3ab-ef00-489f-ad9a-edc81d470e38" />
+
+<details>
+<summary>点击这里查看其他界面和功能预览</summary>
+
+<img width="2560" height="1600" alt="twitter" src="https://github.com/user-attachments/assets/e2cb701d-a497-4b37-99ce-f1a34242d785" />
+<img width="2560" height="1600" alt="reddit" src="https://github.com/user-attachments/assets/98c34f41-5936-494d-9b39-b7eb359174d8" />
+<img width="2558" height="1598" alt="duckai" src="https://github.com/user-attachments/assets/afb45279-d9fc-474a-ae4a-6b9cc602168e" />
+<img width="2560" height="1600" alt="deepseek" src="https://github.com/user-attachments/assets/e08027b5-3f0d-4551-9f6e-83946d36697e" />
+
+</details>
+
 ## 功能
 
 - **简单易用**：只需将您想要更改颜色的网站链接粘贴到评论区，我们将逐步适配。
