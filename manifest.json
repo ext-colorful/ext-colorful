@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Colorful Background Extension",
+  "version": "0.1.0",
+  "description": "Recolor website backgrounds per-site with preset and custom colors.",
+  "action": {
+    "default_title": "Colorful Background",
+    "default_popup": "src/popup/index.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
