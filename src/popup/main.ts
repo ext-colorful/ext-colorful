@@ -1,4 +1,4 @@
-import { getDomainSettings, setDomainSettings, type DomainSettings } from '../lib/storage';
+import { getDomainSettings, setDomainSettings, removeRule, type DomainSettings } from '../lib/storage';
 
 // Declare chrome to avoid needing @types/chrome here
 declare const chrome: any;
@@ -100,6 +100,7 @@ function buildPalette(onSelect: (color: string) => void) {
     div.className = 'swatch';
     div.style.background = color;
     div.title = color;
+    div.dataset.color = color.toUpperCase();
     div.addEventListener('click', () => onSelect(color));
     const check = document.createElement('div');
     check.className = 'check';
@@ -111,9 +112,10 @@ function buildPalette(onSelect: (color: string) => void) {
 }
 
 function highlightSelected(color: string) {
+  const target = (color || '').toUpperCase();
   const swatches = document.querySelectorAll<HTMLDivElement>('.swatch');
   swatches.forEach((el) => {
-    const matches = el.style.background?.toLowerCase() === color.toLowerCase();
+    const matches = (el.dataset.color || '') === target;
     if (matches) el.classList.add('selected'); else el.classList.remove('selected');
   });
 }
@@ -124,6 +126,7 @@ async function main() {
   const input = $("customInput") as HTMLInputElement;
   const saveBtn = $("saveBtn");
   const applyBtn = $("applyBtn");
+  const resetBtn = $("resetBtn");
 
   const domain = await requestActiveDomain();
   domainLabel.textContent = domain || 'Unknown domain';
@@ -141,10 +144,12 @@ async function main() {
     input.value = color;
     setPreview(color);
     highlightSelected(color);
-    // Persist and apply immediately
-    current = { ...current, color };
+    // Enable and apply immediately when a color is picked
+    current = { ...current, color, enabled: true };
+    setToggleUI(true);
+    setEnabledLabel(true);
     setDomainSettings(domain, current).then(() => {
-      if (current.enabled) applyToActiveTab({ enabled: true, color });
+      applyToActiveTab({ enabled: true, color });
     });
     updateError(null);
   });
@@ -179,9 +184,12 @@ async function main() {
     selectedColor = parsed;
     setPreview(parsed);
     highlightSelected(parsed);
-    current = { ...current, color: parsed };
+    // Enable when a valid color is entered and apply immediately
+    current = { ...current, color: parsed, enabled: true };
+    setToggleUI(true);
+    setEnabledLabel(true);
     setDomainSettings(domain, current).then(() => {
-      if (current.enabled) applyToActiveTab({ enabled: true, color: parsed });
+      applyToActiveTab({ enabled: true, color: parsed });
     });
   });
 
@@ -202,6 +210,26 @@ async function main() {
     current = { ...current, color: parsed };
     await setDomainSettings(domain, current);
     await applyToActiveTab({ enabled: current.enabled, color: parsed });
+  });
+
+  // Reset for current site
+  resetBtn.addEventListener('click', async () => {
+    await removeRule(domain);
+    // Reload current to reflect default
+    current = await getDomainSettings(domain);
+    selectedColor = current.color || '#FFFFFF';
+
+    // Update UI
+    setEnabledLabel(false);
+    setToggleUI(false);
+    input.value = '';
+    setPreview('#ffffff');
+    highlightSelected('');
+    updateError('Reset');
+    setTimeout(() => updateError(null), 1200);
+
+    // Remove styles immediately
+    await applyToActiveTab({ enabled: false, color: selectedColor });
   });
 }
 

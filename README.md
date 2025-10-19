@@ -20,26 +20,38 @@
 
 ## 功能
 
-- **简单易用**：只需将您想要更改颜色的网站链接粘贴到评论区，我们将逐步适配。
-- **多种颜色选择**：提供多种颜色选项，满足不同用户的需求。
-- **持续更新**：我们会根据用户反馈不断改进和更新插件。
+- **简单易用**：在弹出窗口中选择颜色即可应用到当前网站。
+- **每站点记忆**：每个站点的颜色单独保存，下次访问会自动应用。
+- **多种颜色选择**：提供多种预设颜色，并支持自定义十六进制颜色。
+- **重置**：一键清除当前站点的设置并移除注入样式。
 
-## 安装
+## 本地加载（开发／调试）
 
-您可以通过以下链接安装多彩背景扩展：
+Chrome / Edge 中以“加载已解压的扩展程序”的方式安装：
 
-- [Chrome 应用商店](https://chromewebstore.google.com/detail/%E5%A4%9A%E5%BD%A9%E8%83%8C%E6%99%AF/kjdglnecpmkeokdeboehpaajdddhommg)
-- [Microsoft Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/pndeoniljijhiemfdogejkhmbggpognj)
+- 前置条件：已安装 Node.js 18+ 和 npm。
+- 安装依赖：`npm install`
+- 方案一（推荐，热重载）：
+  1. 运行 `npm run dev`
+  2. 浏览器打开扩展管理（chrome://extensions 或 edge://extensions），开启“开发者模式”。
+  3. 点击“加载已解压的扩展程序”，选择项目根目录下生成的 `extension/` 目录。
+- 方案二（打包构建）：
+  1. 运行 `npm run build`
+  2. 在扩展管理中“加载已解压的扩展程序”，选择 `dist/chrome-mv3/` 目录。
+
+可选：运行 `npm run zip` 生成可上传商店的 zip 包。
 
 ## 使用方法
 
-1. 安装插件后，打开您想要更改背景颜色的网站。
-2. 在评论区粘贴网站链接。
-3. 等待适配完成，享受您个性化的浏览体验！
+1. 打开任意网站，点击扩展图标打开弹窗。
+2. 从预设色块中选择颜色，或输入自定义十六进制颜色（如 #AABBCC）。
+3. 打开开关以启用当前站点的背景颜色。颜色会立即生效并保存。
+4. 点击“Reset”可清除该站点的设置并移除页面样式。
+5. 再次访问该站点时，保存的颜色会自动应用。
 
 ## 反馈与支持
 
-如果您在使用过程中遇到任何问题或有建议，请随时在[issues](https://github.com/ext-colorful/ext-colorful/issues)中留言。我们会尽快回复并进行改进。
+如果您在使用过程中遇到任何问题或有建议，请随时在 [issues](https://github.com/ext-colorful/ext-colorful/issues) 中留言。我们会尽快回复并进行改进。
 
 感谢您的支持与使用！让我们一起为网络增添更多色彩！
 
@@ -60,10 +72,10 @@ Common commands:
 
 Project layout:
 - src/background.ts: MV3 service worker (module)
-- src/content/colorizer.ts: Content script that applies the background color
-- src/popup/index.html and src/popup/main.ts: Popup UI
+- src/content/colorizer.ts: Content script that applies the background color and listens to storage/messages
+- src/popup/index.html and src/popup/main.ts: Popup UI with palette, custom color, toggle, and reset per-site
 - src/options/index.html and src/options/main.ts: Options page
-- src/lib: Shared helpers
+- src/lib: Shared helpers (storage abstraction using chrome.storage.sync/local)
 - public/icons: Extension icons copied as-is into the build
 
-WXT manifest is configured in wxt.config.ts and uses MV3.
+WXT manifest is configured in wxt.config.ts and uses MV3。

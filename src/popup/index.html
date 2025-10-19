@@ -25,7 +25,7 @@
       .input { height: 36px; padding: 0 10px; border-radius: var(--radius); border: 1px solid var(--border); outline: none; font-size: 14px; }
       .preview { height: 36px; border-radius: var(--radius); border: 1px solid var(--border); }
       .error { color: #b91c1c; font-size: 12px; min-height: 16px; }
-      .actions { display: flex; gap: 8px; }
+      .actions { display: flex; gap: 8px; flex-wrap: wrap; }
       button { height: 36px; border-radius: var(--radius); border: 1px solid var(--border); background: #f3f4f6; cursor: pointer; padding: 0 12px; font-weight: 600; }
       button.primary { background: #111827; color: #ffffff; border-color: #111827; }
       .section-title { font-size: 12px; color: var(--muted); margin-top: 6px; }
@@ -54,6 +54,7 @@
       <div class="actions">
         <button id="saveBtn">Save</button>
         <button id="applyBtn" class="primary">Apply</button>
+        <button id="resetBtn" title="Clear settings for this site">Reset</button>
       </div>
     </div>
 
