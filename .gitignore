@@ -19,3 +19,7 @@ yarn.lock
 
 # TS
 *.tsbuildinfo
+
+# WXT
+.wxt/
+extension/

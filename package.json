@@ -1,0 +1,17 @@
+{
+  "name": "colorful-background-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WXT-based MV3 extension to recolor website backgrounds per site.",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt dev",
+    "build": "wxt build",
+    "zip": "wxt zip"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.266",
+    "typescript": "^5.5.4",
+    "wxt": "^0.18.8"
+  }
+}

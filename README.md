@@ -42,3 +42,28 @@
 如果您在使用过程中遇到任何问题或有建议，请随时在[issues](https://github.com/ext-colorful/ext-colorful/issues)中留言。我们会尽快回复并进行改进。
 
 感谢您的支持与使用！让我们一起为网络增添更多色彩！
+
+---
+
+Development (WXT)
+
+Prerequisites:
+- Node.js 18+ and npm
+
+Setup:
+- npm install
+
+Common commands:
+- npm run dev: Start WXT in development mode with live-reload
+- npm run build: Build the production extension into dist/
+- npm run zip: Create a ZIP archive of the build output
+
+Project layout:
+- src/background.ts: MV3 service worker (module)
+- src/content/colorizer.ts: Content script that applies the background color
+- src/popup/index.html and src/popup/main.ts: Popup UI
+- src/options/index.html and src/options/main.ts: Options page
+- src/lib: Shared helpers
+- public/icons: Extension icons copied as-is into the build
+
+WXT manifest is configured in wxt.config.ts and uses MV3.
