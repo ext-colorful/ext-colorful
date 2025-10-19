@@ -1,0 +1,21 @@
+# Node
+node_modules/
+.npm/
+.pnpm-store/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build outputs
+/dist/
+/build/
+/out/
+*.log
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# TS
+*.tsbuildinfo
