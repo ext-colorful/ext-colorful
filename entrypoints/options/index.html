@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Colorful Background - Options</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 24px; }
+      label { display: block; margin: 12px 0 4px; }
+      input[type="color"] { width: 64px; height: 32px; padding: 0; border: 1px solid #ccc; }
+      button { margin-top: 12px; padding: 8px 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>Colorful Background - Options</h1>
+    <p>Choose a default background color:</p>
+    <label for="default-color">Default color</label>
+    <input id="default-color" type="color" value="#ffefd5" />
+    <div>
+      <button id="save" type="button">Save</button>
+    </div>
+
+    <p>Use the popup to apply a color to the current tab, or right-click to toggle.</p>
+
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>

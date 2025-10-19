@@ -1,0 +1,16 @@
+# Node
+node_modules/
+
+# Build outputs
+dist/
+.wxt/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor
+.vscode/
+.DS_Store

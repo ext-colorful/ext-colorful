@@ -1,0 +1,15 @@
+{
+  "name": "colorful-background-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A browser extension to recolor website backgrounds with customizable colors.",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "wxt": "^0.18.10"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Colorful Background Extension"
+  },
+  "extNameDev": {
+    "message": "Colorful Background Extension (Dev)"
+  },
+  "extDescription": {
+    "message": "Recolor website backgrounds with customizable colors."
+  }
+}

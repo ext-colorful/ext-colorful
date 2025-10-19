@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Colorful Background</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 12px; min-width: 220px; }
+      .row { display: flex; gap: 8px; align-items: center; }
+      select, button { padding: 6px; font-size: 14px; }
+      small { color: #666; }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <label for="color">Color</label>
+      <select id="color">
+        <option value="#ffefd5">PapayaWhip</option>
+        <option value="#fafad2">LightGoldenRodYellow</option>
+        <option value="#e6e6fa">Lavender</option>
+        <option value="#f0fff0">Honeydew</option>
+        <option value="#f5f5dc">Beige</option>
+        <option value="#ffffff">White</option>
+      </select>
+      <button id="apply" type="button">Apply</button>
+    </div>
+    <p><small>Applies to this tab. Use context menu to toggle.</small></p>
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>
