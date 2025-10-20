@@ -3,16 +3,16 @@
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "strict": true,
     "skipLibCheck": true,
-    "noEmit": true,
+    "outDir": "dist",
+    "rootDir": "src",
     "types": ["chrome"],
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["src/*"]
-    }
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true
   },
-  "include": ["src", "wxt.config.ts"],
+  "include": ["src"],
   "exclude": ["dist", "node_modules"]
 }
