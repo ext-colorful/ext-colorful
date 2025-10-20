@@ -45,7 +45,7 @@
 
 ---
 
-Development (WXT)
+Development (MV3 + TypeScript Skeleton)
 
 Prerequisites:
 - Node.js 18+ and npm
@@ -53,17 +53,31 @@ Prerequisites:
 Setup:
 - npm install
 
-Common commands:
-- npm run dev: Start WXT in development mode with live-reload
-- npm run build: Build the production extension into dist/
-- npm run zip: Create a ZIP archive of the build output
+Build:
+- npm run build
 
-Project layout:
-- src/background.ts: MV3 service worker (module)
-- src/content/colorizer.ts: Content script that applies the background color
-- src/popup/index.html and src/popup/main.ts: Popup UI
-- src/options/index.html and src/options/main.ts: Options page
-- src/lib: Shared helpers
-- public/icons: Extension icons copied as-is into the build
+Load in Chrome/Edge:
+1. 打开 chrome://extensions 或 edge://extensions
+2. 打开“开发者模式”
+3. 选择“加载已解压的扩展程序”，选择项目中的 dist 目录
+4. 点击扩展图标，弹出的 Popup 将显示 “Hello, world”，并且：
+   - 背景页（Service Worker）会在控制台打印启动日志
+   - 内容脚本在任意页面控制台打印注入日志
 
-WXT manifest is configured in wxt.config.ts and uses MV3.
+开发模式（自动构建/拷贝，适合边改边看）：
+- npm run dev
+
+质量工具：
+- npm run lint：ESLint 校验（零警告）
+- npm run format：Prettier 统一格式
+- npm run typecheck：仅类型检查（不产出文件）
+
+项目结构（核心文件）：
+- public/manifest.json：MV3 清单（最小化配置）
+- src/background.ts：MV3 Service Worker（TypeScript）
+- src/content.ts：内容脚本（简单日志用于验证注入）
+- src/popup/popup.html, src/popup/popup.ts：Popup（Hello World）
+- assets/icons/*：扩展图标
+
+构建产物：
+- dist/：可直接作为“已解压的扩展程序”目录进行加载

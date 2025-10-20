@@ -2,16 +2,28 @@
   "name": "colorful-background-extension",
   "version": "0.1.0",
   "private": true,
-  "description": "WXT-based MV3 extension to recolor website backgrounds per site.",
-  "type": "module",
+  "description": "MV3 + TypeScript extension skeleton with ESLint/Prettier and npm scripts.",
   "scripts": {
-    "dev": "wxt dev",
-    "build": "wxt build",
-    "zip": "wxt zip"
+    "clean": "rimraf dist",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "npm run clean && tsc -p tsconfig.json && cpx \"public/manifest.json\" dist && cpx \"assets/**/*\" dist && cpx \"src/popup/**/*.html\" dist",
+    "dev": "concurrently -k -n tsc,copy:manifest,copy:assets,copy:html \"tsc -w\" \"cpx 'public/manifest.json' dist -w\" \"cpx 'assets/**/*' dist -w\" \"cpx 'src/popup/**/*.html' dist -w\"",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/chrome": "^0.0.266",
-    "typescript": "^5.5.4",
-    "wxt": "^0.18.8"
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "concurrently": "^9.0.1",
+    "cpx2": "^7.0.1",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
