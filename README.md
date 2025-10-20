@@ -45,7 +45,7 @@
 
 ---
 
-Development (MV3 + TypeScript Skeleton)
+Development (MV3 + TypeScript)
 
 Prerequisites:
 - Node.js 18+ and npm
@@ -56,28 +56,40 @@ Setup:
 Build:
 - npm run build
 
+Dev (watch & auto copy):
+- npm run dev
+
 Load in Chrome/Edge:
 1. 打开 chrome://extensions 或 edge://extensions
 2. 打开“开发者模式”
 3. 选择“加载已解压的扩展程序”，选择项目中的 dist 目录
-4. 点击扩展图标，弹出的 Popup 将显示 “Hello, world”，并且：
-   - 背景页（Service Worker）会在控制台打印启动日志
-   - 内容脚本在任意页面控制台打印注入日志
 
-开发模式（自动构建/拷贝，适合边改边看）：
-- npm run dev
+Usage (MVP):
+- 在任意网页打开扩展 Popup，选择一种颜色
+  - 扩展会按当前标签页域名保存颜色到 chrome.storage.sync
+  - 当前页面背景会立即更新（无需刷新）
+- 再次访问同一域名时，页面会自动应用已保存的背景色
+- 在“站点设置”（Options 页面）可查看域名→颜色映射并删除或清空
 
-质量工具：
+Quality:
 - npm run lint：ESLint 校验（零警告）
 - npm run format：Prettier 统一格式
 - npm run typecheck：仅类型检查（不产出文件）
 
-项目结构（核心文件）：
-- public/manifest.json：MV3 清单（最小化配置）
-- src/background.ts：MV3 Service Worker（TypeScript）
-- src/content.ts：内容脚本（简单日志用于验证注入）
-- src/popup/popup.html, src/popup/popup.ts：Popup（Hello World）
-- assets/icons/*：扩展图标
+Project structure（核心文件）：
+- public/manifest.json：MV3 清单（permissions: storage, activeTab, scripting; host_permissions: <all_urls>）
+- src/background.ts：MV3 Service Worker
+- src/content.ts：页面加载时读取并应用域名背景色，响应消息即时更新
+- src/lib/storage.ts：基于 chrome.storage.sync 的站点颜色存取工具
+- src/popup/：颜色选择面板（popup.html/css/ts）
+- src/options/：站点设置（options.html/ts）
+- assets/icons/*：扩展图标（16/32/48/128）
 
-构建产物：
+Build output:
 - dist/：可直接作为“已解压的扩展程序”目录进行加载
+
+验收标准（MVP）：
+- 能在 Chrome/Edge 通过“加载已解压的扩展程序”加载；Popup 正常打开无报错
+- 在 Popup 中选择颜色后，当前页面背景立即更新并按域名持久化
+- 重新访问同一域名自动应用保存的颜色
+- 代码通过 lint/格式化（npm run lint / npm run format）
