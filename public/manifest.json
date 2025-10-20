@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Colorful Background Extension",
   "version": "0.1.0",
-  "description": "MV3 extension skeleton (TypeScript) for development setup verification.",
+  "description": "为任意网站应用可自定义的背景色，按域名记忆设置。",
   "action": {
     "default_title": "Colorful Background",
     "default_popup": "popup/popup.html",
@@ -21,6 +21,9 @@
     "service_worker": "background.js",
     "type": "module"
   },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "options_page": "options/options.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

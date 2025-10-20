@@ -4,27 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Colorful Background</title>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
-        padding: 12px 16px;
-        margin: 0;
-        width: 260px;
-      }
-      h1 {
-        font-size: 16px;
-        margin: 0 0 8px 0;
-      }
-      p {
-        margin: 0;
-        color: #555;
-        font-size: 13px;
-      }
-    </style>
+    <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
-    <h1>Hello, world 👋</h1>
-    <p>这是一个 MV3 + TypeScript 的扩展项目骨架。</p>
+    <header>
+      <h1>多彩背景</h1>
+      <a class="options-link" href="../options/options.html" target="_blank" rel="noopener">站点设置</a>
+    </header>
+
+    <div id="host" class="host"></div>
+
+    <section>
+      <h2>选择颜色</h2>
+      <div id="palette" class="palette"></div>
+      <button id="reset" class="reset" type="button">重置此站点</button>
+    </section>
+
+    <footer>
+      <small>选择颜色后会立即应用到当前页面，并按域名记忆。</small>
+    </footer>
+
     <script src="./popup.js" type="module"></script>
   </body>
 </html>
