@@ -12,10 +12,6 @@ html, body {
   background-color: var(--cbg-ext-color) !important;
   background-image: none !important;
 }
-*, *::before, *::after {
-  background-color: var(--cbg-ext-color) !important;
-  background-image: none !important;
-}
 `;
     document.documentElement.appendChild(style);
   }
