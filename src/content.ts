@@ -1,31 +1,30 @@
-// Content script: apply per-domain background color and respond to messages
+// Content script: dynamic, contrast-aware background adjustment inspired by Dark Reader
+import { DynamicBackgroundApplier } from './lib/dynamic-bg.js';
+
 (function () {
-  const STYLE_ID = 'colorful-bg-ext-style';
+  let applier: DynamicBackgroundApplier | null = null;
 
   function applyColor(color: string): void {
-    removeStyle();
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
-    style.textContent = `
-:root { --cbg-ext-color: ${color}; }
-html, body {
-  background-color: var(--cbg-ext-color) !important;
-  background-image: none !important;
-}
-
-/* Broaden coverage to common containers that often define their own white backgrounds */
-main, section, article, aside, header, footer, nav,
-div, #root, #app, #__next, .container, .content, .app, .page, .layout {
-  background-color: var(--cbg-ext-color) !important;
-  background-image: none !important;
-}
-`;
-    document.documentElement.appendChild(style);
+    if (!applier) {
+      applier = new DynamicBackgroundApplier(color, {
+        // Tune defaults if needed
+        brightThreshold: 0.62,
+        maxBlend: 0.9,
+        minContrast: 3.5,
+        minElementArea: 1600,
+      });
+      applier.start();
+    } else {
+      applier.updateTarget(color);
+      applier.start();
+    }
   }
 
-  function removeStyle(): void {
-    const prev = document.getElementById(STYLE_ID);
-    if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+  function clearColor(): void {
+    if (applier) {
+      applier.stop();
+      applier = null;
+    }
   }
 
   function isStringRecord(obj: unknown): obj is Record<string, string> {
@@ -54,7 +53,7 @@ div, #root, #app, #__next, .container, .content, .app, .page, .layout {
       if (color) {
         applyColor(color);
       } else {
-        removeStyle();
+        clearColor();
       }
     } catch {
       // noop
@@ -71,7 +70,7 @@ div, #root, #app, #__next, .container, .content, .app, .page, .layout {
     if (type === 'APPLY_COLOR' && typeof msg['color'] === 'string') {
       applyColor(msg['color']);
     } else if (type === 'CLEAR_COLOR') {
-      removeStyle();
+      clearColor();
     }
   });
 
