@@ -1,12 +1,22 @@
 // Content script: dynamic, contrast-aware background adjustment inspired by Dark Reader
-import { DynamicBackgroundApplier } from './lib/dynamic-bg.js';
+type DynamicBackgroundApplier = import('./lib/dynamic-bg.js').DynamicBackgroundApplier;
 
 (function () {
   let applier: DynamicBackgroundApplier | null = null;
 
-  function applyColor(color: string): void {
+  type DynamicBgModule = typeof import('./lib/dynamic-bg.js');
+  let applierCtorPromise: Promise<DynamicBgModule['DynamicBackgroundApplier']> | null = null;
+  async function getApplierCtor(): Promise<DynamicBgModule['DynamicBackgroundApplier']> {
+    if (!applierCtorPromise) {
+      applierCtorPromise = import(chrome.runtime.getURL('lib/dynamic-bg.js')).then((m) => m.DynamicBackgroundApplier);
+    }
+    return applierCtorPromise;
+  }
+
+  async function applyColor(color: string): Promise<void> {
     if (!applier) {
-      applier = new DynamicBackgroundApplier(color, {
+      const ApplierCtor = await getApplierCtor();
+      applier = new ApplierCtor(color, {
         // Tune defaults if needed
         brightThreshold: 0.62,
         maxBlend: 0.9,
@@ -51,7 +61,7 @@ import { DynamicBackgroundApplier } from './lib/dynamic-bg.js';
       const map = await getAllSiteColors();
       const color = map[getHost()];
       if (color) {
-        applyColor(color);
+        void applyColor(color);
       } else {
         clearColor();
       }
@@ -68,7 +78,7 @@ import { DynamicBackgroundApplier } from './lib/dynamic-bg.js';
     if (!isRecord(msg)) return;
     const type = msg['type'];
     if (type === 'APPLY_COLOR' && typeof msg['color'] === 'string') {
-      applyColor(msg['color']);
+      void applyColor(msg['color']);
     } else if (type === 'CLEAR_COLOR') {
       clearColor();
     }
