@@ -10,6 +10,14 @@
 :root { --cbg-ext-color: ${color}; }
 html, body {
   background-color: var(--cbg-ext-color) !important;
+  background-image: none !important;
+}
+
+/* Broaden coverage to common containers that often define their own white backgrounds */
+main, section, article, aside, header, footer, nav,
+div, #root, #app, #__next, .container, .content, .app, .page, .layout {
+  background-color: var(--cbg-ext-color) !important;
+  background-image: none !important;
 }
 `;
     document.documentElement.appendChild(style);
