@@ -3,25 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Colorful Background</title>
+    <title>多彩主题配置</title>
     <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
     <header>
-      <h1>多彩背景</h1>
+      <h1>多彩主题</h1>
       <a class="options-link" href="../options/options.html" target="_blank" rel="noopener">站点设置</a>
     </header>
 
     <div id="host" class="host"></div>
 
-    <section>
-      <h2>选择颜色</h2>
-      <div id="palette" class="palette"></div>
-      <button id="reset" class="reset" type="button">重置此站点</button>
+    <section class="form">
+      <div class="row">
+        <label class="label"><input type="checkbox" id="enabled" /> 启用此站点</label>
+      </div>
+
+      <h2>背景</h2>
+      <div class="row">
+        <label class="label" for="mode">背景模式</label>
+        <select id="mode">
+          <option value="color">纯色（智能融合）</option>
+          <option value="gradient">渐变</option>
+          <option value="image">图片</option>
+        </select>
+      </div>
+
+      <div id="colorFields" class="group">
+        <div class="row">
+          <label class="label" for="colorInput">背景颜色</label>
+          <input type="color" id="colorInput" />
+        </div>
+      </div>
+
+      <div id="gradientFields" class="group" hidden>
+        <div class="row">
+          <label class="label" for="gradientType">类型</label>
+          <select id="gradientType">
+            <option value="linear">线性</option>
+            <option value="radial">径向</option>
+          </select>
+        </div>
+        <div class="row angle-row">
+          <label class="label" for="angle">角度</label>
+          <input type="number" id="angle" min="0" max="360" step="1" />
+        </div>
+        <div class="row">
+          <label class="label">颜色</label>
+          <div class="inline">
+            <input type="color" id="gColor1" />
+            <span class="sep">→</span>
+            <input type="color" id="gColor2" />
+          </div>
+        </div>
+      </div>
+
+      <div id="imageFields" class="group" hidden>
+        <div class="row">
+          <label class="label" for="imgUrl">图片地址</label>
+          <input type="text" id="imgUrl" placeholder="https://example.com/bg.jpg" />
+        </div>
+        <div class="row">
+          <label class="label" for="imgSize">填充</label>
+          <select id="imgSize">
+            <option value="cover">cover</option>
+            <option value="contain">contain</option>
+            <option value="auto">auto</option>
+          </select>
+        </div>
+        <div class="row">
+          <label class="label" for="imgRepeat">平铺</label>
+          <select id="imgRepeat">
+            <option value="no-repeat">no-repeat</option>
+            <option value="repeat">repeat</option>
+            <option value="repeat-x">repeat-x</option>
+            <option value="repeat-y">repeat-y</option>
+          </select>
+        </div>
+        <div class="row">
+          <label class="label" for="imgPosition">位置</label>
+          <select id="imgPosition">
+            <option value="center center">center</option>
+            <option value="top center">top</option>
+            <option value="bottom center">bottom</option>
+            <option value="center left">left</option>
+            <option value="center right">right</option>
+          </select>
+        </div>
+        <div class="row">
+          <label class="label" for="imgAttachment">滚动</label>
+          <select id="imgAttachment">
+            <option value="fixed">fixed</option>
+            <option value="scroll">scroll</option>
+            <option value="local">local</option>
+          </select>
+        </div>
+      </div>
+
+      <h2>文字</h2>
+      <div class="row">
+        <label class="label" for="textColor">字体颜色</label>
+        <input type="color" id="textColor" />
+      </div>
+      <div class="row">
+        <label class="label" for="linkColor">链接颜色</label>
+        <input type="color" id="linkColor" />
+      </div>
+      <div class="row">
+        <label class="label"><input type="checkbox" id="textBgEnabled" /> 字体背景</label>
+      </div>
+      <div class="row" id="textBgRow" hidden>
+        <label class="label" for="textBgColor">背景颜色</label>
+        <input type="color" id="textBgColor" />
+      </div>
+
+      <div class="buttons">
+        <button id="saveBtn" type="button">保存</button>
+        <button id="resetBtn" class="reset" type="button">重置此站点</button>
+      </div>
     </section>
 
     <footer>
-      <small>选择颜色后会立即应用到当前页面，并按域名记忆。</small>
+      <small>更改会实时预览，点击“保存”写入此站点配置。</small>
     </footer>
 
     <script src="./popup.js" type="module"></script>

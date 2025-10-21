@@ -1,26 +1,10 @@
-import { getColorForHost, setColorForHost, removeColorForHost } from '../lib/storage.js';
-
-const COLORS = [
-  '#fef3c7', // amber-100
-  '#fde68a', // amber-200
-  '#bbf7d0', // green-200
-  '#a7f3d0', // teal-200
-  '#bfdbfe', // blue-200
-  '#c7d2fe', // indigo-200
-  '#fbcfe8', // pink-200
-  '#fecaca', // red-200
-];
-
-function createColorEl(color: string, selected: boolean) {
-  const btn = document.createElement('button');
-  btn.className = 'color' + (selected ? ' selected' : '');
-  btn.setAttribute('data-color', color);
-  const swatch = document.createElement('span');
-  swatch.className = 'swatch';
-  swatch.style.background = color;
-  btn.appendChild(swatch);
-  return btn;
-}
+import {
+  defaultSiteConfig,
+  getConfigForHost,
+  removeConfigForHost,
+  setConfigForHost,
+  type SiteConfig,
+} from '../lib/storage.js';
 
 async function getActiveTab(): Promise<chrome.tabs.Tab | undefined> {
   return new Promise((resolve) => {
@@ -38,60 +22,182 @@ function getHostFromUrl(url: string | undefined): string | undefined {
   }
 }
 
-function sendApplyToTab(tabId: number, color: string) {
-  chrome.tabs.sendMessage(tabId, { type: 'APPLY_COLOR', color });
+function sendApplyToTab(tabId: number, config: SiteConfig) {
+  chrome.tabs.sendMessage(tabId, { type: 'APPLY_CONFIG', config });
 }
 
 function sendClearToTab(tabId: number) {
-  chrome.tabs.sendMessage(tabId, { type: 'CLEAR_COLOR' });
+  chrome.tabs.sendMessage(tabId, { type: 'CLEAR_ALL' });
 }
 
-function markSelected(paletteEl: HTMLElement, color?: string) {
-  paletteEl.querySelectorAll('.color').forEach((el) => el.classList.remove('selected'));
-  if (!color) return;
-  const el = paletteEl.querySelector(`.color[data-color="${CSS.escape(color)}"]`);
-  if (el) el.classList.add('selected');
+function setGroupVisibility(mode: SiteConfig['mode']) {
+  (document.getElementById('colorFields') as HTMLElement).hidden = mode !== 'color';
+  (document.getElementById('gradientFields') as HTMLElement).hidden = mode !== 'gradient';
+  (document.getElementById('imageFields') as HTMLElement).hidden = mode !== 'image';
+  const angleRow = document.querySelector('.angle-row') as HTMLElement;
+  const gradientType = (document.getElementById('gradientType') as HTMLSelectElement).value as 'linear' | 'radial';
+  angleRow.hidden = !(mode === 'gradient' && gradientType === 'linear');
+}
+
+function bindEnableDisable(enabled: boolean) {
+  const controls = document.querySelectorAll('select, input, button');
+  controls.forEach((el) => {
+    const id = (el as HTMLElement).id;
+    if (id === 'enabled' || id === 'saveBtn' || id === 'resetBtn') return;
+    (el as HTMLInputElement | HTMLSelectElement | HTMLButtonElement).disabled = !enabled;
+  });
+}
+
+function uiToConfig(cfg: SiteConfig): SiteConfig {
+  const mode = (document.getElementById('mode') as HTMLSelectElement).value as SiteConfig['mode'];
+  const enabled = (document.getElementById('enabled') as HTMLInputElement).checked;
+
+  const color = (document.getElementById('colorInput') as HTMLInputElement).value || cfg.color;
+
+  const gradientType = (document.getElementById('gradientType') as HTMLSelectElement).value as 'linear' | 'radial';
+  const angle = parseInt((document.getElementById('angle') as HTMLInputElement).value || `${cfg.gradient.angle}`, 10);
+  const gColor1 = (document.getElementById('gColor1') as HTMLInputElement).value || cfg.gradient.colors[0];
+  const gColor2 = (document.getElementById('gColor2') as HTMLInputElement).value || cfg.gradient.colors[1];
+
+  const imgUrl = (document.getElementById('imgUrl') as HTMLInputElement).value ?? cfg.image.url;
+  const imgSize = (document.getElementById('imgSize') as HTMLSelectElement).value as SiteConfig['image']['size'];
+  const imgRepeat = (document.getElementById('imgRepeat') as HTMLSelectElement).value as SiteConfig['image']['repeat'];
+  const imgPosition = (document.getElementById('imgPosition') as HTMLSelectElement).value;
+  const imgAttachment = (document.getElementById('imgAttachment') as HTMLSelectElement).value as SiteConfig['image']['attachment'];
+
+  const textColor = (document.getElementById('textColor') as HTMLInputElement).value || cfg.typography.textColor;
+  const linkColor = (document.getElementById('linkColor') as HTMLInputElement).value || cfg.typography.linkColor || '';
+  const textBgEnabled = (document.getElementById('textBgEnabled') as HTMLInputElement).checked;
+  const textBgColor = (document.getElementById('textBgColor') as HTMLInputElement).value || cfg.typography.textBackgroundColor;
+
+  const next: SiteConfig = {
+    ...cfg,
+    enabled,
+    mode,
+    color,
+    gradient: {
+      type: gradientType,
+      angle: isFinite(angle) ? angle : cfg.gradient.angle,
+      colors: [gColor1 || cfg.gradient.colors[0], gColor2 || cfg.gradient.colors[1]],
+    },
+    image: {
+      url: imgUrl || cfg.image.url,
+      size: imgSize || cfg.image.size,
+      repeat: imgRepeat || cfg.image.repeat,
+      position: imgPosition || cfg.image.position,
+      attachment: imgAttachment || cfg.image.attachment,
+    },
+    typography: {
+      textColor: textColor || cfg.typography.textColor,
+      linkColor: linkColor || cfg.typography.linkColor,
+      textBgEnabled,
+      textBackgroundColor: textBgColor || cfg.typography.textBackgroundColor,
+    },
+  };
+  return next;
+}
+
+function configToUI(cfg: SiteConfig) {
+  (document.getElementById('enabled') as HTMLInputElement).checked = cfg.enabled;
+  (document.getElementById('mode') as HTMLSelectElement).value = cfg.mode;
+
+  (document.getElementById('colorInput') as HTMLInputElement).value = cfg.color;
+
+  (document.getElementById('gradientType') as HTMLSelectElement).value = cfg.gradient.type;
+  (document.getElementById('angle') as HTMLInputElement).value = String(cfg.gradient.angle);
+  (document.getElementById('gColor1') as HTMLInputElement).value = cfg.gradient.colors[0];
+  (document.getElementById('gColor2') as HTMLInputElement).value = cfg.gradient.colors[1];
+
+  (document.getElementById('imgUrl') as HTMLInputElement).value = cfg.image.url;
+  (document.getElementById('imgSize') as HTMLSelectElement).value = cfg.image.size;
+  (document.getElementById('imgRepeat') as HTMLSelectElement).value = cfg.image.repeat;
+  (document.getElementById('imgPosition') as HTMLSelectElement).value = cfg.image.position;
+  (document.getElementById('imgAttachment') as HTMLSelectElement).value = cfg.image.attachment;
+
+  (document.getElementById('textColor') as HTMLInputElement).value = cfg.typography.textColor;
+  (document.getElementById('linkColor') as HTMLInputElement).value = cfg.typography.linkColor || '#2563eb';
+  (document.getElementById('textBgEnabled') as HTMLInputElement).checked = cfg.typography.textBgEnabled;
+  (document.getElementById('textBgColor') as HTMLInputElement).value = cfg.typography.textBackgroundColor;
+
+  (document.getElementById('textBgRow') as HTMLElement).hidden = !cfg.typography.textBgEnabled;
+
+  setGroupVisibility(cfg.mode);
+  bindEnableDisable(cfg.enabled);
 }
 
 async function init() {
   const hostEl = document.getElementById('host')!;
-  const paletteEl = document.getElementById('palette')!;
-  const resetBtn = document.getElementById('reset')! as HTMLButtonElement;
+  const saveBtn = document.getElementById('saveBtn')! as HTMLButtonElement;
+  const resetBtn = document.getElementById('resetBtn')! as HTMLButtonElement;
 
   const tab = await getActiveTab();
   const host = getHostFromUrl(tab?.url);
 
   if (!host) {
     hostEl.textContent = '无法识别当前站点';
-    paletteEl.innerHTML = '<small>请在普通网页标签页中打开弹窗。</small>';
+    saveBtn.disabled = true;
     resetBtn.disabled = true;
     return;
   }
 
   hostEl.textContent = `当前站点：${host}`;
 
-  const current = (await getColorForHost(host)) || undefined;
+  const initial = (await getConfigForHost(host)) || defaultSiteConfig();
+  let current: SiteConfig = { ...defaultSiteConfig(), ...initial };
 
-  COLORS.forEach((c) => {
-    const el = createColorEl(c, current === c);
-    el.addEventListener('click', async () => {
-      try {
-        await setColorForHost(host, c);
-        markSelected(paletteEl, c);
-        if (tab?.id != null) sendApplyToTab(tab.id, c);
-      } catch (e) {
-        // ignore
-      }
-    });
-    paletteEl.appendChild(el);
+  configToUI(current);
+
+  const onAnyChange = () => {
+    current = uiToConfig(current);
+    (document.getElementById('textBgRow') as HTMLElement).hidden = !current.typography.textBgEnabled;
+    setGroupVisibility(current.mode);
+    bindEnableDisable(current.enabled);
+    if (tab?.id != null) sendApplyToTab(tab.id, current);
+  };
+
+  // Bind change handlers
+  const ids = [
+    'enabled',
+    'mode',
+    'colorInput',
+    'gradientType',
+    'angle',
+    'gColor1',
+    'gColor2',
+    'imgUrl',
+    'imgSize',
+    'imgRepeat',
+    'imgPosition',
+    'imgAttachment',
+    'textColor',
+    'linkColor',
+    'textBgEnabled',
+    'textBgColor',
+  ];
+  ids.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', onAnyChange);
+    el.addEventListener('change', onAnyChange);
+  });
+
+  saveBtn.addEventListener('click', async () => {
+    if (!host) return;
+    try {
+      await setConfigForHost(host, current);
+    } catch {
+      // ignore
+    }
   });
 
   resetBtn.addEventListener('click', async () => {
+    if (!host) return;
     try {
-      await removeColorForHost(host);
-      markSelected(paletteEl, undefined);
+      await removeConfigForHost(host);
+      current = defaultSiteConfig();
+      configToUI(current);
       if (tab?.id != null) sendClearToTab(tab.id);
-    } catch (e) {
+    } catch {
       // ignore
     }
   });

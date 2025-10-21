@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>站点背景色设置</title>
+    <title>站点主题设置</title>
     <style>
       * { box-sizing: border-box; }
       body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; margin: 0; padding: 16px; color: #111; }
@@ -11,14 +11,16 @@
       h1 { font-size: 18px; margin: 0; }
       button { height: 32px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.15); background: #fff; cursor: pointer; padding: 0 10px; }
       #list { display: grid; gap: 8px; }
-      .item { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 10px; padding: 10px; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; }
-      .swatch { width: 24px; height: 24px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.1); }
+      .item { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 10px; padding: 10px; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; }
+      .swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.1); background-size: cover; background-position: center; }
+      .label { display: grid; gap: 4px; }
+      .label small { color: #666; }
       .empty { color: #666; }
     </style>
   </head>
   <body>
     <header>
-      <h1>站点背景色设置</h1>
+      <h1>站点主题设置</h1>
       <button id="clearAll" type="button">清空全部</button>
     </header>
 
