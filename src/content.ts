@@ -10,7 +10,6 @@
 :root { --cbg-ext-color: ${color}; }
 html, body {
   background-color: var(--cbg-ext-color) !important;
-  background-image: none !important;
 }
 `;
     document.documentElement.appendChild(style);
@@ -19,8 +18,6 @@ html, body {
   function removeStyle(): void {
     const prev = document.getElementById(STYLE_ID);
     if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
-    document.documentElement.style.removeProperty('background-color');
-    if (document.body) document.body.style.removeProperty('background-color');
   }
 
   function isStringRecord(obj: unknown): obj is Record<string, string> {
