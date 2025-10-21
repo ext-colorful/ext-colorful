@@ -6,7 +6,17 @@
     removeStyle();
     const style = document.createElement('style');
     style.id = STYLE_ID;
-    style.textContent = `html, body { background-color: ${color} !important; }`;
+    style.textContent = `
+:root { --cbg-ext-color: ${color}; }
+html, body {
+  background-color: var(--cbg-ext-color) !important;
+  background-image: none !important;
+}
+*, *::before, *::after {
+  background-color: var(--cbg-ext-color) !important;
+  background-image: none !important;
+}
+`;
     document.documentElement.appendChild(style);
   }
 
