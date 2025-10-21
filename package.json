@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rimraf dist",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "build": "npm run clean && tsc -p tsconfig.json && cpx \"public/manifest.json\" dist && cpx \"assets/**/*\" dist && cpx \"src/**/*.html\" dist && cpx \"src/**/*.css\" dist",
-    "dev": "concurrently -k -n tsc,copy:manifest,copy:assets,copy:html,copy:css \"tsc -w\" \"cpx 'public/manifest.json' dist -w\" \"cpx 'assets/**/*' dist -w\" \"cpx 'src/**/*.html' dist -w\" \"cpx 'src/**/*.css' dist -w\"",
+    "build": "npm run clean && tsc -p tsconfig.json && cpx \"public/manifest.json\" dist && cpx \"assets/**/*\" dist/assets && cpx \"src/**/*.html\" dist && cpx \"src/**/*.css\" dist",
+    "dev": "concurrently -k -n tsc,copy:manifest,copy:assets,copy:html,copy:css \"tsc -w\" \"cpx 'public/manifest.json' dist -w\" \"cpx 'assets/**/*' dist/assets -w\" \"cpx 'src/**/*.html' dist -w\" \"cpx 'src/**/*.css' dist -w\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
     "format": "prettier --write ."
   },
