@@ -6,16 +6,18 @@
 
 以下是多彩背景扩展的界面和功能预览：
 
-<img width="2560" height="1600" alt="chatgpt" src="https://github.com/user-attachments/assets/4fffb3ab-ef00-489f-ad9a-edc81d470e38" />
+<img width="2560" height="1600" alt="eye" src="https://github.com/user-attachments/assets/3c04091c-a2d2-48f0-bd08-a5840fa52819" />
 
 <details>
 <summary>点击这里查看其他界面和功能预览</summary>
-
-<img width="2560" height="1600" alt="twitter" src="https://github.com/user-attachments/assets/e2cb701d-a497-4b37-99ce-f1a34242d785" />
-<img width="2560" height="1600" alt="reddit" src="https://github.com/user-attachments/assets/98c34f41-5936-494d-9b39-b7eb359174d8" />
-<img width="2558" height="1598" alt="duckai" src="https://github.com/user-attachments/assets/afb45279-d9fc-474a-ae4a-6b9cc602168e" />
-<img width="2560" height="1600" alt="deepseek" src="https://github.com/user-attachments/assets/e08027b5-3f0d-4551-9f6e-83946d36697e" />
-
+<img width="2560" height="1600" alt="wikipedia" src="https://github.com/user-attachments/assets/0d7cac43-803a-4117-94ed-636ff86e53d0" />
+<img width="2560" height="1600" alt="twitter" src="https://github.com/user-attachments/assets/9340c504-5458-40d1-8038-4c7ab1ec153f" />
+<img width="2560" height="1600" alt="reddit" src="https://github.com/user-attachments/assets/4940cb21-2e07-4c9f-8265-553c42a62b67" />
+<img width="2560" height="1600" alt="google" src="https://github.com/user-attachments/assets/bb87489a-8020-43aa-be9e-19c46b1513df" />
+<img width="2560" height="1600" alt="eye3" src="https://github.com/user-attachments/assets/eebc83d2-40c4-4a2d-9b00-06635be63f3b" />
+<img width="2560" height="1600" alt="eye1" src="https://github.com/user-attachments/assets/6d050db3-ae29-42ae-8721-040fe12b68e5" />
+<img width="2560" height="1600" alt="chatgpt02" src="https://github.com/user-attachments/assets/b815736d-311a-4c36-8651-ea0c8ee6831b" />
+<img width="2560" height="1600" alt="chatgpt" src="https://github.com/user-attachments/assets/2ce2c5ad-11a1-4417-bb82-b50f7fc65ac0" />
 </details>
 
 ## 功能
@@ -23,6 +25,7 @@
 - **简单易用**：只需将您想要更改颜色的网站链接粘贴到评论区，我们将逐步适配。
 - **多种颜色选择**：提供多种颜色选项，满足不同用户的需求。
 - **持续更新**：我们会根据用户反馈不断改进和更新插件。
+- **new**：新增眼部训练，长时间看电脑舒缓眼睛
 
 ## 安装
 
