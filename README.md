@@ -45,3 +45,7 @@
 如果您在使用过程中遇到任何问题或有建议，请随时在[issues](https://github.com/ext-colorful/ext-colorful/issues)中留言。我们会尽快回复并进行改进。
 
 感谢您的支持与使用！让我们一起为网络增添更多色彩！
+
+## 赞助
+
+If you like my work, please [Sponsor me ❤️](https://patreon.com/20iD); it would be a great help to me.
