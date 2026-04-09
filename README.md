@@ -6,12 +6,12 @@
 
 以下是多彩背景扩展的界面和功能预览：
 
-<img width="2560" height="1600" alt="eye" src="https://github.com/user-attachments/assets/3c04091c-a2d2-48f0-bd08-a5840fa52819" />
+<img width="2560" height="1600" alt="twitter" src="https://github.com/user-attachments/assets/9340c504-5458-40d1-8038-4c7ab1ec153f" />
 
 <details>
 <summary>点击这里查看其他界面和功能预览</summary>
 <img width="2560" height="1600" alt="wikipedia" src="https://github.com/user-attachments/assets/0d7cac43-803a-4117-94ed-636ff86e53d0" />
-<img width="2560" height="1600" alt="twitter" src="https://github.com/user-attachments/assets/9340c504-5458-40d1-8038-4c7ab1ec153f" />
+<img width="2560" height="1600" alt="eye" src="https://github.com/user-attachments/assets/3c04091c-a2d2-48f0-bd08-a5840fa52819" />
 <img width="2560" height="1600" alt="reddit" src="https://github.com/user-attachments/assets/4940cb21-2e07-4c9f-8265-553c42a62b67" />
 <img width="2560" height="1600" alt="google" src="https://github.com/user-attachments/assets/bb87489a-8020-43aa-be9e-19c46b1513df" />
 <img width="2560" height="1600" alt="eye3" src="https://github.com/user-attachments/assets/eebc83d2-40c4-4a2d-9b00-06635be63f3b" />
