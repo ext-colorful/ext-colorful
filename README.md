@@ -49,3 +49,8 @@
 ## 赞助
 
 If you like my work, please [Sponsor me ❤️](https://patreon.com/oeieo); it would be a great help to me.
+<br/>
+<img width="300" height="450" alt="IMG_1461 2" src="https://github.com/user-attachments/assets/2325d641-d1cc-478b-8176-274ca06babdc" />
+<img width="331" height="450" alt="IMG_1460 2" src="https://github.com/user-attachments/assets/7f53a43b-0782-44f2-80ad-a80af5f434d8" />
+
+
