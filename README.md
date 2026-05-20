@@ -50,7 +50,7 @@
 
 If you like my work, please [Sponsor me ❤️](https://patreon.com/oeieo); it would be a great help to me.
 <br/>
-<img width="394" height="450" alt="alipay" src="https://ext-colorful.github.io/images/alipay.jpg" />
-<img width="394" height="450" alt="wechat" src="https://ext-colorful.github.io/images/wechat.jpg" />
+<img width="170" height="170" alt="alipay" src="https://ext-colorful.github.io/images/alipay.svg" />
+<img width="170" height="170" alt="wechat" src="https://ext-colorful.github.io/images/wechat.svg" />
 
 
