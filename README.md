@@ -50,7 +50,7 @@
 
 If you like my work, please [Sponsor me ❤️](https://patreon.com/oeieo); it would be a great help to me.
 <br/>
-<img width="300" height="450" alt="alipay" src="https://github.com/user-attachments/assets/774be113-57ff-45e0-b437-0069f1a0f8f0" />
-<img width="331" height="450" alt="wechat" src="https://github.com/user-attachments/assets/f3eab09c-82e4-44c3-b18f-1e3d4e195326" />
+<img width="300" height="450" alt="alipay" src="https://ext-colorful.github.io/images/alipay.jpg" />
+<img width="331" height="450" alt="wechat" src="https://ext-colorful.github.io/images/wechat.jpg" />
 
 
