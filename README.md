@@ -48,7 +48,7 @@
 
 ## 赞助
 
-If you like my work, please [Sponsor me ❤️](https://patreon.com/oeieo); it would be a great help to me.
+If you like my work, please [Sponsor me ❤️](https://www.paypal.com/paypalme/yxuiang/5); it would be a great help to me.
 <br/>
 <img width="170" height="170" alt="alipay" src="https://ext-colorful.github.io/images/alipay.svg" />
 <img width="170" height="170" alt="wechat" src="https://ext-colorful.github.io/images/wechat.svg" />
