@@ -48,4 +48,4 @@
 
 ## 赞助
 
-If you like my work, please [Sponsor me ❤️](https://patreon.com/oeieo); it would be a great help to me.
+If you like my work, please [Sponsor me ❤️](https://www.paypal.com/paypalme/yxuiang/5); it would be a great help to me.
